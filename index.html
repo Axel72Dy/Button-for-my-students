@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons with Sound</title>
+    <style>
+        /* Button Styles */
+        .button {
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+
+        /* Red and Blue Buttons */
+        .red-button {
+            background-color: red;
+        }
+
+        .blue-button {
+            background-color: blue;
+        }
+
+        /* Add hover effect for buttons */
+        .button:hover {
+            transform: scale(1.1); /* Slightly enlarge button on hover */
+        }
+
+        /* Bright border effect */
+        .bright-border {
+            box-shadow: 0 0 15px 5px yellow; /* Bright glowing effect */
+            animation: bright 0.5s ease-out;
+        }
+
+        @keyframes bright {
+            0% {
+                box-shadow: 0 0 15px 5px yellow;
+            }
+            100% {
+                box-shadow: 0 0 0 0 yellow;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Buttons -->
+    <button class="button red-button" onclick="playSound('red')">Red Button</button>
+    <button class="button blue-button" onclick="playSound('blue')">Blue Button</button>
+
+    <!-- Audio Elements -->
+    <audio id="red-sound" src="red-sound.mp3"></audio>
+    <audio id="blue-sound" src="blue-sound.mp3"></audio>
+
+    <!-- JavaScript -->
+    <script>
+        function playSound(color) {
+            // Select the correct audio element and button
+            const sound = document.getElementById(`${color}-sound`);
+            const button = document.querySelector(`.${color}-button`);
+
+            if (sound) {
+                // Reset and play the sound
+                sound.currentTime = 0;
+                sound.play();
+
+                // Add the bright-border effect temporarily
+                button.classList.add("bright-border");
+                setTimeout(() => button.classList.remove("bright-border"), 500);
+            } else {
+                console.error(`Sound for ${color} not found.`);
+            }
+        }
+    </script>
+</body>
+</html>
